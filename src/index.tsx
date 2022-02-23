@@ -4,8 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Recipes from "./routes/recipes";
-import RecipeView from "./RecipeView";
+import RecipeView from "./routes/RecipeView";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +12,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="recipes/:recipeId" element={<RecipeView />} />
+          <Route path="*" element={<div>Page Not found</div>} />
         </Route>
       </Routes>
     </BrowserRouter>

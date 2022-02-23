@@ -6,7 +6,7 @@
     "totalTime": 20,
     "tags": ["non_dairy", "non_wheat", "comfort_food"],
     "ingredients": [
-      { "label": "celery", "quantity": 1, "unit": "cup" },
+      { "label": "celery", "quantity": 1, "unit": "cup", "prep": "chopped" },
       { "label": "spinach", "quantity": 5, "unit": "cup" }
     ],
     "instructions": ["instructions updated"]
