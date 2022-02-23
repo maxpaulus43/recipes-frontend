@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "saag",
+    "activeTime": 10,
+    "totalTime": 20,
+    "tags": ["non_dairy", "non_wheat", "comfort_food"],
+    "ingredients": [
+      { "label": "celery", "quantity": 1, "unit": "cup" },
+      { "label": "spinach", "quantity": 5, "unit": "cup" }
+    ],
+    "instructions": ["instructions updated"]
+  },
+  {
+    "id": 2,
+    "name": "quick soup",
+    "activeTime": 10,
+    "totalTime": 20,
+    "tags": ["avery_safe", "easy_make"],
+    "ingredients": [{ "label": "celery", "quantity": 3, "unit": "stalk" }],
+    "instructions": ["instructions placeholder"]
+  }
+]

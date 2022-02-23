@@ -5,13 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Recipes from "./routes/recipes";
+import RecipeView from "./RecipeView";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="/recipes" element={<Recipes />} />
+          <Route path="recipes/:recipeId" element={<RecipeView />} />
         </Route>
       </Routes>
     </BrowserRouter>
