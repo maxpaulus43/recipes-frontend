@@ -14,7 +14,7 @@
   {
     "id": 2,
     "name": "quick soup",
-    "activeTime": 10,
+    "activeTime": 15,
     "totalTime": 20,
     "tags": ["avery_safe", "easy_make"],
     "ingredients": [{ "label": "celery", "quantity": 3, "unit": "stalk" }],

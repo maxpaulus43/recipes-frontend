@@ -7,17 +7,21 @@ interface SearchBarProps {}
 
 const SearchBar: React.FC<SearchBarProps> = () => {
   const [input, setInput] = useState("");
-  const fuse = new Fuse(data, { keys: ["name", "tags"], includeMatches: true });
-  const searchResults = fuse.search(input);
+  const fuse = new Fuse(data, {
+    keys: ["name", "tags", "activeTime"],
+  });
+  const searchResults = fuse.search(input.trim());
+
   useEffect(() => {
-    function handleKeyDown({ key }: KeyboardEvent) {
+    function handleEscapeKey({ key }: KeyboardEvent) {
       if (key === "Escape") {
         setInput("");
       }
     }
-    document.addEventListener("keydown", handleKeyDown, false);
+    document.addEventListener("keydown", handleEscapeKey, false);
+
     return () => {
-      document.removeEventListener("keydown", handleKeyDown, false);
+      document.removeEventListener("keydown", handleEscapeKey, false);
     };
   }, []);
 
@@ -29,24 +33,19 @@ const SearchBar: React.FC<SearchBarProps> = () => {
         value={input}
         placeholder="search for recipe"
         onChange={(event) => {
-          setInput((event.target.value as string).trim());
+          setInput(event.target.value);
         }}
       />
-      {input.length > 0 && searchResults.length > 0 && (
+      {input && searchResults.length > 0 && (
         <div
-          className="flex flex-col gap-2 items-center 
+          onClick={() => setInput("")}
+          className="flex flex-col gap-2 items-stretch 
                         absolute 
                         bg-white 
                         max-h-64 p-2 rounded-md w-full overflow-auto shadow-md"
         >
           {searchResults.map(({ item: r }) => {
-            return (
-              <RecipeQuickView
-                recipe={r}
-                key={r.id}
-                onClick={() => setInput("")}
-              />
-            );
+            return <RecipeQuickView recipe={r} key={r.id} />;
           })}
         </div>
       )}
