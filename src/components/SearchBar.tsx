@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import data from "../data.json";
 import RecipeQuickView from "./RecipeQuickView";
 import Fuse from "fuse.js";
+import React from "react";
 
 interface SearchBarProps {}
 

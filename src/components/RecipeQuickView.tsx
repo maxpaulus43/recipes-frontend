@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import Recipe from "../model/Recipe";
 import Tag from "./Tag";
@@ -21,7 +22,7 @@ const RecipeQuickView: React.FC<RecipeQuickViewProps> = ({
             <span>Cook Time: {activeTime}min</span>
           </div>
           {tags && tags.length > 0 && (
-            <div className="flex-row gap-1 flex-wrap flex w-full ">
+            <div className="flex-row gap-1 flex-wrap flex">
               {tags?.map((t) => {
                 return <Tag label={t} key={t} small />;
               })}

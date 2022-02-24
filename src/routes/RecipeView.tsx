@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Recipe from "../model/Recipe";
 import data from "../data.json";
 import Tag from "../components/Tag";
+import React from "react";
 
 interface RecipeViewProps {}
 
