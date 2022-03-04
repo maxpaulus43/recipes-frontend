@@ -12,7 +12,7 @@ const RecipeQuickView: React.FC<RecipeQuickViewProps> = ({
 }) => {
   return (
     <Link to={`/recipes/${id}` }>
-      <div className="flex flex-row gap-3 p-2 rounded-md hover:bg-gray-100">
+      <div className="flex flex-row gap-3 p-2 rounded-md hover:bg-gray-100 hover:shadow-md">
         <div className="w-1/5">
           <span className="font-bold">{name}</span>
         </div>
