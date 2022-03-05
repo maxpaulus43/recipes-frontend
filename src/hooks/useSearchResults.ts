@@ -16,6 +16,8 @@ export default function useDebouncedSearchResultsForInput(input: string) {
   useEffect(() => {
     if (input.length > 0) {
       searchRecipesByArgs({ name: input })
+    } else {
+      setSearchResults([])
     }
   }, [input])
   return searchResults
