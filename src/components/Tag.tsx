@@ -18,7 +18,7 @@ const Tag: React.FC<TagProps> = ({ label, small }) => {
       className={styles}
       onClick={(e) => {
         e.preventDefault()
-        navigate(`/tags/${label}`)
+        navigate(`/recipes?tag=${label}`)
       }}
     >
       {label}

@@ -1,6 +1,6 @@
 export interface Ingredient {
-    label: string;
-    quantity: number;
-    unit: string;
-    prep?: string;
+  seq: number
+  label: string
+  amount: string
+  prep?: string
 }

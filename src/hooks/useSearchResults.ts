@@ -3,7 +3,7 @@ import Recipe from "../model/Recipe"
 import API from "../store/API"
 import { debounce } from "../utils"
 
-export default function useSearchResultsForInput(input: string) {
+export default function useDebouncedSearchResultsForInput(input: string) {
   const [searchResults, setSearchResults] = useState<Recipe[]>([])
   const searchRecipesByArgs = useCallback(
     debounce((opts) => {
@@ -21,7 +21,25 @@ export default function useSearchResultsForInput(input: string) {
   return searchResults
 }
 
-export function useSearchResultsOnceForInput(input: string) {
+export function useSearchResultsForTags(tags: string[]) {
+  const [searchResults, setSearchResults] = useState<Recipe[]>()
+  useEffect(() => {
+    if (tags.length > 0) {
+      const tagsConcatenated = tags.reduce(
+        (prevTag, currTag, idx) => `${prevTag}${idx > 0 ? ",": ""}${currTag}`,
+        "",
+      )
+      API.searchRecipesByArgs({ tags: tagsConcatenated }).then(
+        (recipeResults) => {
+          setSearchResults(recipeResults)
+        },
+      )
+    }
+  }, tags)
+  return searchResults
+}
+
+export function useSearchResultsForInput(input: string) {
   const [searchResults, setSearchResults] = useState<Recipe[]>()
   useEffect(() => {
     if (input.length > 0) {
@@ -29,6 +47,6 @@ export function useSearchResultsOnceForInput(input: string) {
         setSearchResults(recipeResults)
       })
     }
-  }, [])
+  }, [input])
   return searchResults
 }

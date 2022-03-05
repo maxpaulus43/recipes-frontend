@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import useKeyEventHandler from "../hooks/useKeyEventHandler"
-import useSearchResultsForInput from "../hooks/useSearchResults"
+import useDebouncedSearchResultsForInput from "../hooks/useSearchResults"
 import RecipeQuickView from "./RecipeQuickView"
 
 interface SearchBarProps {}
 
 const SearchBar: React.FC<SearchBarProps> = () => {
   const [input, setInput] = useState("")
-  const searchResults = useSearchResultsForInput(input)
+  const searchResults = useDebouncedSearchResultsForInput(input)
 
   useKeyEventHandler("Escape", () => setInput(""))
 

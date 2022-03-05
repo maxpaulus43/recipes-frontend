@@ -1,14 +1,14 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import Tag from "../components/Tag"
-import { useSearchResultsOnceForInput } from "../hooks/useSearchResults"
+import { useSearchResultsForInput } from "../hooks/useSearchResults"
 
 interface RecipeViewProps {}
 
 const RecipeView: React.FC<RecipeViewProps> = () => {
-  const { recipeId } = useParams() 
-  const recipes = useSearchResultsOnceForInput(recipeId ?? "");
-  const recipe = recipes?.[0];
+  const { recipeName } = useParams()
+  const recipes = useSearchResultsForInput(recipeName ?? "")
+  const recipe = recipes?.[0]
 
   return recipes === undefined ? (
     <div>Loading...</div>
@@ -38,7 +38,7 @@ const RecipeView: React.FC<RecipeViewProps> = () => {
                 return (
                   <li key={i.label}>
                     <span>
-                      {i.label} ({i.quantity} {i.unit})
+                      {i.label} ({i.amount})
                     </span>
                     {i.prep && <span>, {i.prep}</span>}
                   </li>

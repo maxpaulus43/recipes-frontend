@@ -1,27 +1,31 @@
 import { Ingredient } from "../model/Ingredient"
 import Recipe from "../model/Recipe"
 
-const endpoint = "http://127.0.0.1:5000"
+const endpoint = "http://192.168.0.149:8082"
 
 function parseRecipesJson(json: any): Recipe[] {
   return json["recipes"].map((obj) => ({
     id: obj["recipeId"],
     name: obj["name"],
-    totalTime: parseInt(obj["total_time"]),
-    activeTime: parseInt(obj["active_time"]),
+    totalTime: obj["total_time"],
+    activeTime: obj["active_time"],
     tags: obj["tags"],
-    ingredients: (obj["ingredients"] as any[]).map(parseIngredientJson),
+    ingredients: parseIngredientsJson(obj["ingredients"]),
     instructions: obj["instructions"],
   }))
 }
 
-function parseIngredientJson(json: any): Ingredient {
-  return {
-    label: json["name"],
-    quantity: json["amount"],
-    unit: "todo",
-    prep: json["prep"],
-  }
+function parseIngredientsJson(json: { k: string; val: any }): Ingredient[] {
+  return Object.entries(json)
+    .map(([k, v]): Ingredient => {
+      return {
+        seq: v["seq"],
+        label: k,
+        amount: v["amount"],
+        prep: v["prep"],
+      }
+    })
+    .sort((a, b) => a.seq - b.seq)
 }
 
 async function getAllRecipes(): Promise<Recipe[]> {
@@ -32,10 +36,14 @@ async function getAllRecipes(): Promise<Recipe[]> {
 
 interface searchOptions {
   name?: string
+  tags?: string
 }
 async function searchRecipesByArgs(opts: searchOptions): Promise<Recipe[]> {
   const queryParams = Object.keys(opts).reduce((prevKey, currKey) => {
-    return prevKey + `${encodeURIComponent(currKey)}=${encodeURIComponent(opts[currKey])}`
+    return (
+      prevKey +
+      `${encodeURIComponent(currKey)}=${encodeURIComponent(opts[currKey])}`
+    )
   }, "")
 
   console.log(`fetching: ${`${endpoint}/recipes?${queryParams}`}`)
