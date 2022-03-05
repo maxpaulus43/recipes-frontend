@@ -1,30 +1,15 @@
-import { useEffect, useState } from "react";
-import data from "../data.json";
-import RecipeQuickView from "./RecipeQuickView";
-import Fuse from "fuse.js";
-import React from "react";
+import React, { useEffect, useState } from "react"
+import useKeyEventHandler from "../hooks/useKeyEventHandler"
+import useSearchResultsForInput from "../hooks/useSearchResults"
+import RecipeQuickView from "./RecipeQuickView"
 
 interface SearchBarProps {}
 
 const SearchBar: React.FC<SearchBarProps> = () => {
-  const [input, setInput] = useState("");
-  const fuse = new Fuse(data, {
-    keys: ["name", "tags", "activeTime"],
-  });
-  const searchResults = fuse.search(input.trim());
+  const [input, setInput] = useState("")
+  const searchResults = useSearchResultsForInput(input)
 
-  useEffect(() => {
-    function handleEscapeKey({ key }: KeyboardEvent) {
-      if (key === "Escape") {
-        setInput("");
-      }
-    }
-    document.addEventListener("keydown", handleEscapeKey, false);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscapeKey, false);
-    };
-  }, []);
+  useKeyEventHandler("Escape", () => setInput(""))
 
   return (
     <div>
@@ -34,7 +19,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
         value={input}
         placeholder="search for recipe"
         onChange={(event) => {
-          setInput(event.target.value);
+          setInput(event.target.value)
         }}
       />
       {input && searchResults.length > 0 && (
@@ -45,13 +30,13 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                         bg-white 
                         max-h-64 p-2 rounded-md w-full overflow-auto shadow-md"
         >
-          {searchResults.map(({ item: r }) => {
-            return <RecipeQuickView recipe={r} key={r.id} />;
+          {searchResults.map((r) => {
+            return <RecipeQuickView recipe={r} key={r.id} />
           })}
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

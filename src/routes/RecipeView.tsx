@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { useParams } from "react-router-dom"
 import Tag from "../components/Tag"
-import data from "../data.json"
-import Recipe from "../model/Recipe"
+import { useSearchResultsOnceForInput } from "../hooks/useSearchResults"
 
 interface RecipeViewProps {}
 
 const RecipeView: React.FC<RecipeViewProps> = () => {
-  const { recipeId } = useParams()
-  const [recipe, setRecipe] = useState<Recipe | null>()
-  useEffect(() => {
-    const foundRecipe = data.find((d) => `${d.id}` === recipeId)
-    setRecipe(foundRecipe ?? null)
-  }, [recipeId])
+  const { recipeId } = useParams() 
+  const recipes = useSearchResultsOnceForInput(recipeId ?? "");
+  const recipe = recipes?.[0];
 
-  return recipe === undefined ? (
+  return recipes === undefined ? (
     <div>Loading...</div>
-  ) : recipe === null ? (
+  ) : recipe === undefined ? (
     <div>Recipe not found</div>
   ) : (
     <div className="w-full max-w-xl">
